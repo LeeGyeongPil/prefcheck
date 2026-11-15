@@ -23,7 +23,7 @@ def test_report_files_deterministic(run_cli, sample_path, tmp_path):
     assert "wrote" in out1
 
     data = json.loads((d1 / "r.json").read_text(encoding="utf-8"))
-    assert data["meta"]["tool_version"] == "0.1.0"
+    assert data["meta"]["tool_version"] == "0.1.1"
     assert data["meta"]["trl_rules"] == "trl-1.18"
     assert data["meta"]["mode"] == "approx"
     assert data["config"]["max_length"] == 64 and data["config"]["truncation_mode"] == "keep_start"

@@ -26,7 +26,7 @@ def test_public_api_surface():
     assert issubclass(prefcheck.InputFormatError, prefcheck.PrefcheckError)
     assert issubclass(prefcheck.TokenizerLoadError, prefcheck.PrefcheckError)
     assert issubclass(prefcheck.ConfigError, prefcheck.PrefcheckError)
-    assert prefcheck.__version__ == "0.1.0"
+    assert prefcheck.__version__ == "0.1.1"
     assert "identical_pair" in prefcheck.RULES
 
 

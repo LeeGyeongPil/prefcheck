@@ -34,7 +34,7 @@ Without `--tokenizer`, prefcheck uses an approximate word-and-punctuation tokeni
 The output starts like this (shortened here; the screenshot above shows the whole report):
 
 ```text
-prefcheck 0.1.0 - preference data check
+prefcheck 0.1.1 - preference data check
 
 NOTE: approximate mode (no tokenizer) - practice/mock mode. Token counts differ from your model; pass --tokenizer for real numbers.
 
@@ -148,7 +148,7 @@ prefcheck examples/conversational.jsonl --max-length 64 \
 {
   "meta": {
     "tool": "prefcheck",
-    "tool_version": "0.1.0",
+    "tool_version": "0.1.1",
     "trl_rules": "trl-1.18",
     "mode": "approx",
     "tokenizer": "approx",
@@ -300,7 +300,7 @@ This project follows [Semantic Versioning](https://semver.org/). While the versi
 
 ```bash
 uv sync
-uv run pytest -q      # 29 tests, no network, torch, GPU or API key
+uv run pytest -q      # 35 tests, no network, torch, GPU or API key
 uv build
 ```
 

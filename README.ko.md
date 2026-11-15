@@ -34,7 +34,7 @@ uv run prefcheck examples/conversational.jsonl --max-length 64
 출력의 앞부분은 이렇습니다(여기서는 줄였고, 위 스크린샷에 전체가 있습니다).
 
 ```text
-prefcheck 0.1.0 - 선호 데이터 검사
+prefcheck 0.1.1 - 선호 데이터 검사
 
 참고: 근사 모드(토크나이저 없음) - 연습용 목(mock) 모드입니다. 토큰 수는 실제 모델과 다르니 실제 수치는 --tokenizer 를 넘겨 확인하세요.
 
@@ -148,7 +148,7 @@ prefcheck examples/conversational.jsonl --max-length 64 \
 {
   "meta": {
     "tool": "prefcheck",
-    "tool_version": "0.1.0",
+    "tool_version": "0.1.1",
     "trl_rules": "trl-1.18",
     "mode": "approx",
     "tokenizer": "approx",
@@ -299,7 +299,7 @@ report = check_file("data.jsonl", CheckConfig(max_length=1024), tokenizer=tokeni
 
 ```bash
 uv sync
-uv run pytest -q      # 테스트 29개, 네트워크·torch·GPU·API 키 불필요
+uv run pytest -q      # 테스트 35개, 네트워크·torch·GPU·API 키 불필요
 uv build
 ```
 

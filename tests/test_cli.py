@@ -96,7 +96,7 @@ def test_list_rules_and_version(run_cli):
     code, out, _ = run_cli("--list-rules")
     assert code == 0 and "identical_after_truncation" in out and "length_bias" in out
     code, out, _ = run_cli("--version")
-    assert code == 0 and out.startswith("prefcheck 0.1.0")
+    assert code == 0 and out.startswith("prefcheck 0.1.1")
 
 
 @pytest.mark.parametrize("flag", ["--clean", "--bad-rows", "--json", "--markdown"])
