@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prefcheck"
+version = "0.1.0"
+description = "Lint DPO/ORPO preference datasets with your trainer's tokenizer and truncation settings, before you spend GPU hours."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "LeeGyeongPil" }]
+keywords = ["dpo", "orpo", "preference-data", "trl", "llm", "dataset", "lint"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+# Real tokenizer mode. torch is not needed.
+hf = [
+  "transformers==5.23.0",
+  "tokenizers==0.23.3",
+  "jinja2==3.1.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/LeeGyeongPil/prefcheck"
+Issues = "https://github.com/LeeGyeongPil/prefcheck/issues"
+
+[project.scripts]
+prefcheck = "prefcheck.cli:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8",
+  "transformers==5.23.0",
+  "tokenizers==0.23.3",
+  "jinja2==3.1.6",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prefcheck"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/prefcheck", "tests", "examples", "CHANGELOG.md", "LICENSE", "README.md", "README.ko.md", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
