@@ -1,0 +1,99 @@
+{
+  "version": "1.0",
+  "truncation": null,
+  "padding": null,
+  "added_tokens": [
+    {
+      "id": 0,
+      "content": "[UNK]",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 1,
+      "content": "<|im_start|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 2,
+      "content": "<|im_end|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 3,
+      "content": "</s>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    }
+  ],
+  "normalizer": null,
+  "pre_tokenizer": {
+    "type": "WhitespaceSplit"
+  },
+  "post_processor": null,
+  "decoder": null,
+  "model": {
+    "type": "WordLevel",
+    "vocab": {
+      "[UNK]": 0,
+      "<|im_start|>": 1,
+      "<|im_end|>": 2,
+      "</s>": 3,
+      "user": 4,
+      "assistant": 5,
+      "system": 6,
+      "the": 7,
+      "sky": 8,
+      "is": 9,
+      "blue": 10,
+      "green": 11,
+      "what": 12,
+      "color": 13,
+      "grass": 14,
+      "red": 15,
+      "a": 16,
+      "b": 17,
+      "c": 18,
+      "d": 19,
+      "e": 20,
+      "f": 21,
+      "g": 22,
+      "h": 23,
+      "i": 24,
+      "j": 25,
+      "k": 26,
+      "l": 27,
+      "m": 28,
+      "n": 29,
+      "count": 30,
+      "1": 31,
+      "2": 32,
+      "3": 33,
+      "4": 34,
+      "5": 35,
+      "6": 36,
+      "7": 37,
+      "8": 38,
+      "9": 39,
+      "hello": 40,
+      "there": 41,
+      "yes": 42,
+      "no": 43
+    },
+    "unk_token": "[UNK]"
+  }
+}

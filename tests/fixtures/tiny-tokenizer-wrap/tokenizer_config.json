@@ -1,0 +1,7 @@
+{
+  "tokenizer_class": "PreTrainedTokenizerFast",
+  "eos_token": "</s>",
+  "unk_token": "[UNK]",
+  "model_max_length": 512,
+  "chat_template": "<|im_start|>count {{ messages|length }} <|im_end|> {% for m in messages %}<|im_start|>{{ m.role }} {{ m.content }}<|im_end|> {% endfor %}{% if add_generation_prompt %}<|im_start|>assistant {% endif %}"
+}
