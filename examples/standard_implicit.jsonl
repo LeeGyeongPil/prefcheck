@@ -1,0 +1,4 @@
+{"chosen": "The sky is blue.", "rejected": "The sky is green."}
+{"chosen": "Water boils at 100 degrees", "rejected": "Water boils at 100 degrees Celsius."}
+{"chosen": "2 plus 2 is 4.", "rejected": "2 plus 2 is 5."}
+{"chosen": "Cats are mammals.</s>", "rejected": "Cats are reptiles.</s>"}

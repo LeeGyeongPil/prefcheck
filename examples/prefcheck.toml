@@ -1,0 +1,18 @@
+# Example prefcheck configuration. Pass it with: prefcheck data.jsonl --config prefcheck.toml
+
+[check]
+max_length = 1024          # a positive integer, or "none" for no truncation
+truncation = "keep_start"  # or "keep_end"
+
+[thresholds]
+near_identical_jaccard = 0.9  # character 3-gram Jaccard at or above this is "nearly identical"
+length_ratio_max = 4.0        # chosen/rejected token ratio >= 4.0 (or <= 0.25) is extreme
+length_bias_ratio = 0.7       # share of pairs where chosen is longer
+length_bias_r = 0.3           # point-biserial correlation of length with the label
+
+# Rule severities: "off", "warn" or "error". Run `prefcheck --list-rules` for all ids.
+[rules.near_identical_pair]
+severity = "off"
+
+[rules.length_bias]
+severity = "error"
