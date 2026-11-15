@@ -177,6 +177,9 @@ class Report:
                 )
             if len(shown) < len(self.findings):
                 lines += ["", t("findings.truncated", shown=len(shown), total=len(self.findings))]
+        elif self.findings:
+            # max_findings=0 hides every finding: say so instead of claiming there are none
+            lines.append(t("findings.truncated", shown=0, total=len(self.findings)))
         else:
             lines.append(t("findings.none"))
         return "\n".join(lines) + "\n"
@@ -213,6 +216,8 @@ class Report:
             out += _table(rows, indent=2, gap=2)
             if len(shown) < len(self.findings):
                 out.append("  " + t("findings.truncated", shown=len(shown), total=len(self.findings)))
+        elif self.findings:
+            out.append("  " + t("findings.truncated", shown=0, total=len(self.findings)))
         else:
             out.append("  " + t("findings.none"))
         return "\n".join(out) + "\n"
