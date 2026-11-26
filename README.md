@@ -106,8 +106,8 @@ prefcheck [--tokenizer NAME|PATH] [--offline] [--revision REV]
 | `--truncation` | The TRL `truncation_mode` to simulate (`keep_start` default, or `keep_end`) |
 | `--config` | A `prefcheck.toml` with thresholds and per-rule severities |
 | `--json` / `--markdown` | Write a machine-readable or Markdown report |
-| `--bad-rows` | Write rows with errors (the original row plus a `_prefcheck` field) |
-| `--clean` | Write only the rows without errors, text and order unchanged |
+| `--bad-rows` | Write rows with errors (the original row plus a `_prefcheck` field), in the input's format (JSONL or JSON array) |
+| `--clean` | Write only the rows without errors, order unchanged, in the input's format (JSONL or JSON array) |
 | `--fail-on` | `error` (default), `warn` or `never`: which severity gives exit code 1 |
 | `--max-findings N` | How many findings the terminal table shows (default 50) |
 | `--lang en\|ko` | Screen language (see Settings) |

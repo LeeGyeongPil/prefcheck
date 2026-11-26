@@ -106,8 +106,8 @@ prefcheck [--tokenizer NAME|PATH] [--offline] [--revision REV]
 | `--truncation` | 흉내 낼 TRL `truncation_mode`(기본 `keep_start`, 또는 `keep_end`) |
 | `--config` | 임계값과 규칙별 등급을 담은 `prefcheck.toml` |
 | `--json` / `--markdown` | 기계가 읽는 보고서 또는 Markdown 보고서 저장 |
-| `--bad-rows` | 오류가 있는 행 저장(원본 행 + `_prefcheck` 칸) |
-| `--clean` | 오류 없는 행만 저장(원문·순서 그대로) |
+| `--bad-rows` | 오류가 있는 행 저장(원본 행 + `_prefcheck` 칸), 입력과 같은 형식(JSONL 또는 JSON 배열) |
+| `--clean` | 오류 없는 행만 저장(순서 그대로), 입력과 같은 형식(JSONL 또는 JSON 배열) |
 | `--fail-on` | `error`(기본), `warn`, `never`: 어떤 등급이면 종료 코드 1 인지 |
 | `--max-findings N` | 터미널 표에 보일 문제 수(기본 50) |
 | `--lang en\|ko` | 화면 언어(설정 절 참고) |
