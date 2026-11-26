@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "prefcheck"
-version = "0.1.1"
+version = "0.1.2"
 description = "Lint DPO/ORPO preference datasets with your trainer's tokenizer and truncation settings, before you spend GPU hours."
 readme = "README.md"
 requires-python = ">=3.11"

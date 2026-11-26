@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-27
+
+### Fixed
+- `--clean` and `--bad-rows` now write a JSON array when the input is a `.json` array (they used to write JSONL, which `json.load` could not read). JSONL input output is unchanged.
+
 ## [0.1.1] - 2026-11-15
 
 ### Fixed
