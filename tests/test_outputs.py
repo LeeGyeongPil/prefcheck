@@ -66,4 +66,55 @@ def test_json_array_input_and_line_numbers(run_cli, tmp_path):
     assert data["findings"][0]["row"] == 0 and data["findings"][0]["line"] is None
     # the first row is implicit, the second explicit: allowed (TRL extracts per row), no mixed_format
     assert not [f for f in data["findings"] if f["rule"] == "mixed_format"]
-    assert len((tmp_path / "c.jsonl").read_text(encoding="utf-8").splitlines()) == 1
+    # array input -> the clean file is a JSON array too (same format as the input)
+    assert json.loads((tmp_path / "c.jsonl").read_text(encoding="utf-8")) == rows[1:]
+
+
+def _array_file(tmp_path):
+    rows = [
+        {"chosen": "a b c", "rejected": "a b c"},
+        {"prompt": "x y", "chosen": " z", "rejected": " w"},
+        {"prompt": "p q", "chosen": " 한글", "rejected": " r"},
+    ]
+    p = tmp_path / "rows.json"
+    p.write_text(json.dumps(rows), encoding="utf-8")
+    return p, rows
+
+
+def test_json_array_input_writes_json_array_outputs(run_cli, tmp_path):
+    p, rows = _array_file(tmp_path)
+    clean, bad = tmp_path / "clean.json", tmp_path / "bad.json"
+    code, _, _ = run_cli(str(p), "--clean", str(clean), "--bad-rows", str(bad))
+    assert code == 1
+    clean_rows = json.loads(clean.read_text(encoding="utf-8"))
+    assert clean_rows == rows[1:]  # order and content preserved
+    assert "한글" in clean.read_text(encoding="utf-8")  # ensure_ascii=False
+    bad_rows = json.loads(bad.read_text(encoding="utf-8"))
+    assert isinstance(bad_rows, list) and len(bad_rows) == 1
+    assert bad_rows[0]["_prefcheck"] == ["identical_pair"]
+    assert {k: v for k, v in bad_rows[0].items() if k != "_prefcheck"} == rows[0]
+    assert clean.read_text(encoding="utf-8").endswith("\n")
+    # re-reading the clean copy passes the gate
+    code, _, _ = run_cli(str(clean))
+    assert code == 0
+
+
+def test_json_array_output_valid_when_no_or_all_rows_bad(run_cli, tmp_path):
+    p, rows = _array_file(tmp_path)
+    clean, bad = tmp_path / "clean.json", tmp_path / "bad.json"
+    code, _, _ = run_cli(str(p), "--clean", str(clean), "--bad-rows", str(bad), "--fail-on", "never")
+    assert code == 0
+    assert len(json.loads(bad.read_text(encoding="utf-8"))) == 1
+    # no bad rows
+    ok = tmp_path / "ok.json"
+    ok.write_text(json.dumps(rows[1:]), encoding="utf-8")
+    code, _, _ = run_cli(str(ok), "--clean", str(clean), "--bad-rows", str(bad))
+    assert code == 0
+    assert json.loads(bad.read_text(encoding="utf-8")) == []
+    assert json.loads(clean.read_text(encoding="utf-8")) == rows[1:]
+    # all rows bad
+    allbad = tmp_path / "allbad.json"
+    allbad.write_text(json.dumps([rows[0]]), encoding="utf-8")
+    code, _, _ = run_cli(str(allbad), "--clean", str(clean))
+    assert code == 1
+    assert json.loads(clean.read_text(encoding="utf-8")) == []

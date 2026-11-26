@@ -83,24 +83,43 @@ def _original(rec: Record) -> str:
     return rec.raw if rec.raw is not None else _dump(rec.data)
 
 
+def _is_json_array(records: list[Record]) -> bool:
+    """True when the records came from a ``.json`` array (they carry no file line number)."""
+    return bool(records) and records[0].line is None and records[0].raw is None
+
+
+def _write_json_array(path: str | Path, items: list[Any]) -> None:
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open("w", encoding="utf-8", newline="\n") as fh:
+        json.dump(items, fh, ensure_ascii=False, indent=2)
+        fh.write("\n")
+
+
 def write_clean(path: str | Path, records: list[Record], bad_rows: Collection[int]) -> int:
-    """Write the records without error rows, original text and order preserved. Returns the row count."""
+    """Write the records without error rows in the input's format (JSONL text kept as is, or a JSON array)."""
     kept = [r for r in records if r.row not in bad_rows]
-    _write_lines(path, [_original(r) for r in kept])
+    if _is_json_array(records):
+        _write_json_array(path, [r.data for r in kept])
+    else:
+        _write_lines(path, [_original(r) for r in kept])
     return len(kept)
 
 
 def write_bad_rows(path: str | Path, records: list[Record], rules_by_row: dict[int, list[str]]) -> int:
     """Write only the error rows: the original object plus a ``_prefcheck`` field listing the rule ids."""
-    lines: list[str] = []
+    objs: list[dict[str, Any]] = []
     for rec in records:
         if rec.row not in rules_by_row:
             continue
         obj = dict(rec.data) if isinstance(rec.data, dict) else {"_value": rec.data}
         obj["_prefcheck"] = rules_by_row[rec.row]
-        lines.append(_dump(obj))
-    _write_lines(path, lines)
-    return len(lines)
+        objs.append(obj)
+    if _is_json_array(records):
+        _write_json_array(path, objs)
+    else:
+        _write_lines(path, [_dump(o) for o in objs])
+    return len(objs)
 
 
 def _write_lines(path: str | Path, lines: list[str]) -> None:
